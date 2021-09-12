@@ -57,9 +57,9 @@ tf.random.set_random_seed(41)
 machines_number = 1313
 # machine_configs = [MachineConfig(i, 64, 1e9, 1e9) for i in range(machines_number)]
 machine_configs = [MachineConfig(i, 64) for i in range(machines_number)]
-vm_cpu_request_file = '/hhd/sxy/cloudsim-alibaba2017/resources/configuration/instance_plan_cpu_100.csv'
-vm_machine_id_file = '/hhd/sxy/cloudsim-alibaba2017/resources/configuration/instance_machine_id_100.csv'
-vm_cpu_utils_folder = '/hhd/sxy/cloudsim-alibaba2017/resources/workload/alibaba2017/instance_all'
+vm_cpu_request_file = './data/instance_plan_cpu_100.csv'
+vm_machine_id_file = './data/instance_machine_id_100.csv'
+vm_cpu_utils_folder = './data/instance_all'
 instance_configs = InstanceConfigLoader(vm_cpu_request_file, vm_machine_id_file, vm_cpu_utils_folder)
 # ************************ Data loading End ************************
 
