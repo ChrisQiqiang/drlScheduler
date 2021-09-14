@@ -13,16 +13,16 @@ class Simulation(object):
         self.cluster.configure_machines(machine_configs)
         self.cluster.configure_instances(instance_configs)
 
-        self.instance_cpu_curves = {
-            self.cluster.machines[instance_config.machine_id].instances[instance_config.id]:
-                instance_config.cpu_curve for instance_config in instance_configs
-        }
+        # self.instance_cpu_curves = {
+        #     self.cluster.machines[instance_config.machine_id].instances[instance_config.id]:
+        #         instance_config.cpu_curve for instance_config in instance_configs
+        # }
 #         self.instance_memory_curves = {
 #             self.cluster.machines[instance_config.machine_id].instances[instance_config.id]:
 #                 instance_config.memory_curve for instance_config in instance_configs
 #         }
 
-        self.monitor = Monitor(self.env, trigger, algorithm)
+        self.monitor = Monitor(self.env, trigger, algorithm,len(instance_configs[0].cpu_curve))
         # self.scheduler = Scheduler(self.env, algorithm)
 
         self.monitor.attach(self)

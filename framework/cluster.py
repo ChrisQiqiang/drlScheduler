@@ -1,5 +1,5 @@
 from framework.machine import Machine
-
+import warnings
 
 class Cluster(object):
     def __init__(self):
@@ -13,12 +13,20 @@ class Cluster(object):
             self.machines[machine.id] = machine
             machine.attach(self)
 
+    def SearchFirstFitMachineForInstance(self, instance_config):
+        for machine in self.machines.values():
+            if machine.cpu > instance_config.cpu:
+                return machine
+        return None
+
     def configure_instances(self, instance_configs):
         for instance_config in instance_configs:
-            machine_id = instance_config.machine_id
-            machine = self.machines.get(machine_id, None)
-            assert machine is not None
-            machine.add_instance(instance_config)
+            machine = self.SearchFirstFitMachineForInstance(instance_config)
+            if machine is None:
+                warnings.warn("None of machines in the cluster can launch INSTANCE" + instance_config.instance_id + " , please recommit it later...")
+            else:
+                machine.add_instance(instance_config)
+
 
 #     @property
 #     def structure(self):

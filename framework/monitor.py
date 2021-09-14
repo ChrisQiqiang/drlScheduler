@@ -1,8 +1,9 @@
 class Monitor(object):
-    def __init__(self, env, trigger, algorithm):
+    def __init__(self, env, trigger, algorithm, finish_time):
         self.env = env
         self.trigger = trigger
         self.algorithm = algorithm
+        self.finish_time = finish_time
         self.simulation = None
         self.cluster = None
 
@@ -41,7 +42,7 @@ class Monitor(object):
         self.cluster.instances_to_reschedule = instances_to_reschedule
 
     def run(self):
-        while not self.simulation.finished:
+        for i in range(self.finish_time):
             self.sample()
             self.trigger(self.cluster, self.env.now)
             if self.cluster.machines_to_schedule:
