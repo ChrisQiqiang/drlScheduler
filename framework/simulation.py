@@ -1,5 +1,5 @@
 import simpy
-
+import os
 from framework.cluster import Cluster
 from framework.monitor import Monitor
 from framework.scheduler import Scheduler
@@ -7,6 +7,7 @@ from framework.scheduler import Scheduler
 
 class Simulation(object):
     def __init__(self, machine_configs, instance_configs, trigger, algorithm):
+
         self.env = simpy.Environment()
 
         self.cluster = Cluster()
@@ -26,6 +27,7 @@ class Simulation(object):
         # self.scheduler = Scheduler(self.env, algorithm)
 
         self.monitor.attach(self)
+
         # self.scheduler.attach(self)
 
     def run(self):

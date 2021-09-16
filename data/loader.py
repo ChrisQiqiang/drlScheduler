@@ -26,29 +26,16 @@ from framework.machine import MachineConfig
 #     return instance_configs
 
 
-def InstanceConfigLoader(vm_cpu_request_file, vm_machine_id_file, vm_cpu_utils_folder):
+def InstanceConfigLoader( vm_machine_id_file, vm_cpu_utils_folder):
     instance_configs = []
-    vm_cpu_requests = pd.read_csv(vm_cpu_request_file, header = None).values.squeeze()
-    vm_machine_ids = pd.read_csv(vm_machine_id_file, header = None)[1].values
+    # vm_cpu_requests = pd.read_csv(vm_cpu_request_file, header = None).values.squeeze()
+    InstanceMachineId = pd.read_csv(vm_machine_id_file, header = None)[1].values
     vm_cpu_utils = sorted([os.path.join(vm_cpu_utils_folder, x) for x in os.listdir(vm_cpu_utils_folder)])
-    
-    assert len(vm_cpu_requests) == len(vm_machine_ids)
-    
 
-#     # for all trace
-#     for i in range(len(vm_cpu_requests)):
-#         cpu_curve = pd.read_csv(vm_cpu_utils[i], header = None).values.squeeze().tolist()
-#         # 不需要的填充0
-# #         memory_curve = np.zeros_like(cpu_curve).tolist()
-# #         disk_curve = np.zeros_like(cpu_curve).tolist()
-# #         instance = InstanceConfig(i, vm_machine_ids[i], cpu_curve[0], 0, 0, cpu_curve, memory_curve)
-#         instance = InstanceConfig(i, vm_machine_ids[i], cpu_curve[0], cpu_curve)
-#         instance_configs.append(instance)
-    
-    # for 100 trace
-    for i in range(0, 100):
+
+    for i in range(len(InstanceMachineId)):
         cpu_curve = pd.read_csv(vm_cpu_utils[i], header = None).values.squeeze().tolist()
-        instance = InstanceConfig(i, vm_machine_ids[i], cpu_curve[0], cpu_curve)
+        instance = InstanceConfig(i, InstanceMachineId[i], cpu_curve[0], cpu_curve)
         instance_configs.append(instance)
         
     return instance_configs

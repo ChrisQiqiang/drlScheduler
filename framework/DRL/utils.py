@@ -1,7 +1,7 @@
 import time
 import numpy as np
 import tensorflow as tf
-
+import logging,os
 
 def features_extract_func(instance):
 #     return [instance.cpu, instance.memory]
@@ -15,6 +15,7 @@ def features_normalize_func(x):
 
 
 def multiprocessing_run(episode, trajectories, makespans):
+    logging.info("Current pid id: " + str(os.getpid()) + ", starts to run.")
     np.random.seed(int(time.time()))
     tf.random.set_random_seed(time.time())
     episode.run()
